@@ -18,7 +18,7 @@ $soil = $_POST['soil'];
 $air = $_POST['airquality'];
 $plantheight = $_POST['plantheight'];
 
-$sql = "INSERT INTO SensorData (temperature, humidity, soil, airquality, plantheight)
+$sql = "INSERT INTO sensor_data (temperature, humidity, soil, airquality, plantheight)
 VALUES ('$temp', '$hum', '$soil', '$air', '$plantheight')";
 
 if ($conn->query($sql) === TRUE) {
