@@ -3,17 +3,17 @@
 #include "DHT.h"
 
 // WiFi Credentials
-const char* ssid = "YOUR_WIFI_SSID";
-const char* password = "YOUR_WIFI_PASSWORD";
+const char* ssid = "ABC";
+const char* password = "1234567890";
 
 // Server URL
-const char* serverName = "http://YOUR_PC_IP/SmartGarden/insert_data.php"; 
+const char* serverName = "http://localhost/SmartGarden/.php"; 
 
 // Sensor Pins
 #define DHTPIN 4
 #define DHTTYPE DHT11
 #define SOIL_MOISTURE_PIN 34
-#define MQ135_PIN 35
+#define MQ04_PIN 35  // Changed from MQ135_PIN to MQ04_PIN
 #define TRIG_PIN 5
 #define ECHO_PIN 18
 #define FAN_RELAY_PIN 25
@@ -32,7 +32,7 @@ void setup() {
   Serial.begin(115200);
   
   pinMode(SOIL_MOISTURE_PIN, INPUT);
-  pinMode(MQ135_PIN, INPUT);
+  pinMode(MQ04_PIN, INPUT);  // Changed pin name here
   pinMode(TRIG_PIN, OUTPUT);
   pinMode(ECHO_PIN, INPUT);
   pinMode(FAN_RELAY_PIN, OUTPUT);
@@ -56,7 +56,7 @@ void loop() {
     float temp = dht.readTemperature();
     float hum = dht.readHumidity();
     int soilMoisture = analogRead(SOIL_MOISTURE_PIN);
-    int mq135Value = analogRead(MQ135_PIN);
+    int mq04Value = analogRead(MQ04_PIN);  // Changed variable name
 
     // Plant Height Measurement
     long duration;
@@ -95,7 +95,7 @@ void loop() {
     String httpRequestData = "temperature=" + String(temp) +
                              "&humidity=" + String(hum) +
                              "&soil=" + String(soilMoisture) +
-                             "&airquality=" + String(mq135Value) +
+                             "&airquality=" + String(mq04Value) +  // Updated field
                              "&plantheight=" + String(plantHeight);
 
     http.begin(serverName);
